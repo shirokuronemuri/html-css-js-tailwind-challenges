@@ -1,0 +1,29 @@
+@import "../global.style.css";
+
+.text-header {
+  @apply font-display text-4xl font-medium;
+}
+
+.text-subheader {
+  @apply font-display text-xl;
+}
+
+.text-base {
+  @apply font-display text-sm;
+}
+
+.listitem-desc {
+  @apply font-display text-sm;
+}
+
+.listitem-title {
+  @apply font-display mb-1 text-xl/6 font-medium;
+}
+
+.listitem-iconbox {
+  @apply mr-4 aspect-square h-16 rounded-md p-2 shadow-md;
+}
+
+.listitem-box {
+  @apply flex min-h-20 rounded-xl bg-white/80 p-2 shadow-md transition hover:scale-105;
+}

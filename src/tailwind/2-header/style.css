@@ -1,0 +1,27 @@
+@import "../global.style.css";
+
+@font-face {
+  font-family: "NGNL";
+  src: url("./files/ngnl-font.ttf") format("truetype");
+}
+
+.nav-logo {
+  @apply font-ngnl text-4xl;
+}
+
+.bg {
+  background:
+    linear-gradient(90deg, #fff 30px, transparent 1%) 50%,
+    linear-gradient(#fff 30px, transparent 1%) 50%,
+    #000;
+  background-attachment: fixed;
+  background-size: 32px 32px;
+}
+
+.navlink {
+  @apply font-display inline-block px-4 py-3 text-2xl hover:bg-neutral-100;
+}
+
+@theme {
+  --font-ngnl: "NGNL", sans-serif;
+}
