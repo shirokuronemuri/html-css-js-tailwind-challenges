@@ -1,18 +1,26 @@
-const guesses = document.querySelector(".guesses");
-const guessSubmit = document.querySelector(".guessSubmit");
-const guessField = document.querySelector(".guessField");
-const lastResult = document.querySelector(".lastResult");
-const lowOrHi = document.querySelector(".lowOrHi");
+function queryElement<T extends Element>(selector: string): T {
+  const el = document.querySelector<T>(selector);
+  if (!el) {
+    throw new Error(`element not found: el`, { cause: el });
+  }
+  return el;
+}
+
+const guesses = queryElement<HTMLElement>(".guesses");
+const guessSubmit = queryElement<HTMLInputElement>(".guessSubmit");
+const guessField = queryElement<HTMLInputElement>(".guessField");
+const lastResult = queryElement<HTMLElement>(".lastResult");
+const lowOrHi = queryElement<HTMLElement>(".lowOrHi");
 
 let guessCount = 1;
-let resetButton;
-let randomNumber;
+let resetButton: HTMLButtonElement;
+let randomNumber: number;
 
 function reset() {
   randomNumber = Math.floor(Math.random() * 10) + 1;
   guessCount = 1;
   const resultParas = document.querySelectorAll(".resultParas p");
-  for (let param of resultParas) {
+  for (const param of resultParas) {
     param.textContent = "";
   }
   guessSubmit.disabled = false;
@@ -20,7 +28,7 @@ function reset() {
   guessField.focus();
   lastResult.style.backgroundColor = "white";
   if (resetButton) {
-    resetButton.parentNode.removeChild(resetButton);
+    resetButton.parentNode?.removeChild(resetButton);
   }
 }
 
