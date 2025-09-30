@@ -1,3 +1,5 @@
+import gsap from "gsap";
+
 const container = document.getElementById("bg-container");
 const bg = document.querySelector(".bg");
 
