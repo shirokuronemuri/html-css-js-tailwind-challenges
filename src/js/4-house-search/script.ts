@@ -1,12 +1,22 @@
-const streetSelect = document.getElementById("choose-street");
-const bedroomSelect = document.getElementById("choose-bedrooms");
-const bathroomSelect = document.getElementById("choose-bathrooms");
-const form = document.querySelector("form");
+import { queryElement } from "../../helpers";
 
-const resultCount = document.getElementById("result-count");
-const output = document.getElementById("output");
+const streetSelect = queryElement<HTMLSelectElement>("#choose-street");
+const bedroomSelect = queryElement<HTMLSelectElement>("#choose-bedrooms");
+const bathroomSelect = queryElement<HTMLSelectElement>("#choose-bathrooms");
+const form = queryElement<HTMLFormElement>("form");
 
-let houses;
+const resultCount = queryElement<HTMLElement>("#result-count");
+const output = queryElement<HTMLElement>("#output");
+
+interface House {
+  house_number: string;
+  street: string;
+  bedrooms: number;
+  bathrooms: number;
+  price: number;
+  room_sizes: Record<string, number>;
+}
+let houses: House[];
 
 // Create fetchHouseData() function here
 async function fetchHouseData() {
@@ -19,27 +29,27 @@ function initializeForm() {
   const streets = [...new Set(houses.map((house) => house.street))].sort();
   const bedrooms = [...new Set(houses.map((house) => house.bedrooms))].sort();
   const bathrooms = [...new Set(houses.map((house) => house.bathrooms))].sort();
-  for (let street of streets) {
+  for (const street of streets) {
     const option = document.createElement("option");
     option.value = street;
     option.textContent = street;
     streetSelect.appendChild(option);
   }
-  for (let bedroom of bedrooms) {
+  for (const bedroom of bedrooms) {
     const option = document.createElement("option");
-    option.value = bedroom;
-    option.textContent = bedroom;
+    option.value = bedroom.toString();
+    option.textContent = bedroom.toString();
     bedroomSelect.appendChild(option);
   }
-  for (let bathroom of bathrooms) {
+  for (const bathroom of bathrooms) {
     const option = document.createElement("option");
-    option.value = bathroom;
-    option.textContent = bathroom;
+    option.value = bathroom.toString();
+    option.textContent = bathroom.toString();
     bathroomSelect.appendChild(option);
   }
 }
 
-function renderHouses(e) {
+function renderHouses(e: SubmitEvent) {
   e.preventDefault();
 
   const filteredHouses = houses.filter((house) => {
@@ -54,7 +64,7 @@ function renderHouses(e) {
   });
   resultCount.textContent = `Results returned: ${filteredHouses.length}`;
   output.innerHTML = "";
-  const renderHouse = (house) => {
+  const renderHouse = (house: House) => {
     const houseArea = Object.values(house.room_sizes).reduce((acc, cur) => acc + cur, 0);
 
     const article = document.createElement("article");
@@ -78,7 +88,7 @@ function renderHouses(e) {
 
     output.appendChild(article);
   };
-  for (let house of filteredHouses) {
+  for (const house of filteredHouses) {
     renderHouse(house);
   }
 }

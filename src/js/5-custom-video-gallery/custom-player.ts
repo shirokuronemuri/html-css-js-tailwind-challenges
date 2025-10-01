@@ -1,20 +1,22 @@
 // TODO: add seekbar navigation, volume switch, hours display, thumbnails on seekbar (remember the netflix example)
 // TODO: ideally write your own styles
 
-const media = document.querySelector("video");
-const controls = document.querySelector(".controls");
+import { queryElement } from "../../helpers";
 
-const play = document.querySelector(".play");
-const stop = document.querySelector(".stop");
-const rewind = document.querySelector(".rwd");
-const forward = document.querySelector(".fwd");
+const media = queryElement<HTMLVideoElement>("video");
+const controls = queryElement<HTMLElement>(".controls");
 
-const timerWrapper = document.querySelector(".timer");
-const timer = document.querySelector(".timer span");
-const timerBar = document.querySelector(".timer div");
+const play = queryElement<HTMLElement>(".play");
+const stop = queryElement<HTMLElement>(".stop");
+const rewind = queryElement<HTMLElement>(".rwd");
+const forward = queryElement<HTMLElement>(".fwd");
 
-let ForwardInterval;
-let RewindInterval;
+const timerWrapper = queryElement<HTMLElement>(".timer");
+const timer = queryElement<HTMLElement>(".timer span");
+const timerBar = queryElement<HTMLElement>(".timer div");
+
+let ForwardInterval: NodeJS.Timeout;
+let RewindInterval: NodeJS.Timeout;
 
 media.removeAttribute("controls");
 controls.style.visibility = "visible";

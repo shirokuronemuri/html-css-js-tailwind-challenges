@@ -1,22 +1,27 @@
-const displayedImage = document.querySelector(".displayed-img");
-const thumbBar = document.querySelector(".thumb-bar");
+import { queryElement } from "../../helpers";
 
-const btn = document.querySelector("button");
-const overlay = document.querySelector(".overlay");
+const displayedImage = queryElement<HTMLImageElement>(".displayed-img");
+const thumbBar = queryElement<HTMLElement>(".thumb-bar");
+
+const btn = queryElement<HTMLButtonElement>("button");
+const overlay = queryElement<HTMLElement>(".overlay");
 
 const images = Array(5)
   .fill("")
   .map((_, i) => `images/pic${i + 1}.jpg`);
 const alts = ["Eye", "White pattern", "Flowers", "Egyptian picture", "Butterfly"];
-for (let [i, img] of images.entries()) {
+for (const [i, img] of images.entries()) {
   const newImage = document.createElement("img");
   newImage.setAttribute("src", img);
-  newImage.setAttribute("alt", alts[i]);
+  newImage.setAttribute("alt", alts[i] || "");
   thumbBar.appendChild(newImage);
 
   newImage.addEventListener("click", (e) => {
-    displayedImage.setAttribute("src", e.target.getAttribute("src"));
-    displayedImage.setAttribute("alt", e.target.getAttribute("alt"));
+    const target = (e.target as HTMLImageElement) || null;
+    if (target) {
+      displayedImage.setAttribute("src", target.getAttribute("src") || "");
+      displayedImage.setAttribute("alt", target.getAttribute("alt") || "");
+    }
   });
 }
 

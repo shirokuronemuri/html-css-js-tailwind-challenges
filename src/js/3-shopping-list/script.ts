@@ -1,6 +1,8 @@
-const input = document.querySelector("input");
-const addItem = document.querySelector("button");
-const list = document.querySelector("ul");
+import { queryElement } from "../../helpers";
+
+const input = queryElement<HTMLInputElement>("input");
+const addItem = queryElement<HTMLButtonElement>("button");
+const list = queryElement<HTMLElement>("ul");
 
 addItem.addEventListener("click", () => {
   const item = document.createElement("li");

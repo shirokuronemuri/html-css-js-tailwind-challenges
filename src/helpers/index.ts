@@ -1,0 +1,1 @@
+export { queryElement } from "./queryElement";
